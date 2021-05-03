@@ -75,10 +75,16 @@ class MainWindow(qtw.QWidget):
         self.result_field.setText("".join(self.fin_num))
 
     def result(self):
+        if not self.temp_num and not self.fin_num:
+            return
+
         try:
             forbid = ['+', '-', '*', '/']
             for item in forbid:
                 if self.fin_num[-1] == item and not self.temp_num:
+                    return
+                if self.fin_num[-1] == item and not self.fin_num[0]:
+                    self.clear()
                     return
             fin_string = "".join(self.fin_num) + "".join(self.temp_num)
             result_string = eval(fin_string)
